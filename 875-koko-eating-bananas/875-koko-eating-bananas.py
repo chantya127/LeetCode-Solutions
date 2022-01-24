@@ -1,32 +1,28 @@
+from math import ceil
 
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         
-        def poss(speed):
+        def pos(speed):
             
             time = 0
             
             for ban in piles:
                 
-                time += math.ceil(ban/speed)
-                
+                time+= ceil(ban/speed)
+            
             return (time <= h)
         
-        size = len(piles)
-        
-        maxi = max(piles)
-        
         low = 1
-        high = maxi
+        high = max(piles)
         ans = -1
+        
         
         while(low <= high):
             
-            mid = (high - low)//2 + low
+            mid = (high-low)//2 + low
             
-            val = poss(mid)
-            
-            if (val):
+            if (pos(mid)):
                 ans = mid
                 high = mid-1
             
