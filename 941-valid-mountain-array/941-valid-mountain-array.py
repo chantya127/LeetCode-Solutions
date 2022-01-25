@@ -6,37 +6,15 @@ class Solution:
         if (size < 3):
             return False
         
-        maxi = -1
-        idx = -1
+        idx = 0
         
-        for i in range(size):
-            
-            curr = arr[i]
-            if (curr > maxi):
-                maxi = curr
-                idx = i
+        while(idx <size-1 and arr[idx] < arr[idx+1]):
+            idx +=1
         
-        left= idx-1
+        if (idx == 0 or idx == size-1):
+            return (False)
         
-        right = idx+1
-        if (left <0 or right >= size):
-            return False
+        while(idx <size-1 and arr[idx] > arr[idx+1]):
+            idx +=1
         
-        prev = maxi
-        for idx in range(left , -1,-1):
-            
-            curr = arr[idx]
-            if (curr >= prev):
-                return False
-            
-            prev = curr
-        
-        prev = maxi
-        for idx in range(right , size,1):
-            curr = arr[idx]
-            if (curr >=  prev):
-                return False
-            
-            prev = curr
-        
-        return (True)
+        return (idx == size-1)
