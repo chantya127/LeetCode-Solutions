@@ -1,4 +1,4 @@
-from collections import defaultdict
+from heapq import heappush as push , heappop as pop
 
 class Solution:
     def maxProbability(self, n: int, edges: List[List[int]], prob: List[float], start: int, end: int) -> float:
@@ -14,20 +14,23 @@ class Solution:
             graph[src].append((dest,wt))
             graph[dest].append((src,wt))
         
-        ququ = deque()
-        ququ.append(start)
+        heap = []
+        push(heap , (-1.0,start))
         
-        while(ququ):
-            node = ququ.popleft()
-            if node == end:
-                continue
-                
+        while(heap):
+            
+            curr_prob , node = pop(heap)
+            curr_prob = -curr_prob
+            # print(node)
+            
+            if (node == end):
+                return (curr_prob)
+            
             for adj,wt in graph[node]:
                 
-                if (dp[adj] < dp[node]*wt):
+                if (dp[adj] < wt*(curr_prob)):
                     
-                    dp[adj] = dp[node]*wt
-                    
-                    ququ.append(adj)
+                    dp[adj] = wt*(curr_prob)
+                    push(heap , (-dp[adj] , adj))
         
-        return dp[end]
+        return (0.0)
