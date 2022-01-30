@@ -4,13 +4,6 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         size = len(nums)
-        k= (k%size)
+        k = (k%size)
         
-        ans = [0]*(size)
-        
-        for idx in range(size):
-            
-            next_idx = (idx + k)%size
-            ans[next_idx] = nums[idx]
-        
-        nums[:] = ans[:]
+        nums[:] = nums[size-k:] + nums[:size-k]
