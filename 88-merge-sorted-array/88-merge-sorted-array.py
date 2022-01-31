@@ -4,28 +4,25 @@ class Solution:
         Do not return anything, modify nums1 in-place instead.
         """
         
-        ans = []
+        p1,p2 = m-1,n-1
         
-        p1 , p2 = 0,0
+        idx = m+n-1
         
-        while(p1<m and p2 < n):
+        while(p1 >=0 and p2 >=0):
             
-            v1,v2= nums1[p1] , nums2[p2]
-            
-            if (v1 < v2):
-                ans.append(v1)
-                p1 +=1
+            if (nums1[p1] < nums2[p2]):
+                
+                nums1[idx] = nums2[p2]
+                p2 -=1
             
             else:
-                ans.append(v2)
-                p2 +=1
+                nums1[idx] = nums1[p1]
+                p1 -=1
+            
+            idx -=1
+        while(p2 >=0):
+            
+            nums1[idx] = nums2[p2]
+            p2 -=1
+            idx -=1
         
-        while(p1 <m):
-            ans.append(nums1[p1])
-            p1 +=1
-        
-        while(p2 < n):
-            ans.append(nums2[p2])
-            p2 +=1
-        
-        nums1[:] = ans[:]
