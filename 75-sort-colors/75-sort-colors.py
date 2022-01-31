@@ -5,9 +5,10 @@ class Solution:
         """
         
         def swap(arr , p1,p2):
-            
-            arr[p1] ,arr[p2] = arr[p2] , arr[p1]
-            
+            if (p1 != p2):
+                arr[p1] = arr[p1]^arr[p2]
+                arr[p2] = arr[p1]^arr[p2]
+                arr[p1] = arr[p1]^arr[p2]
         
         size = len(nums)
         
