@@ -13,7 +13,7 @@ class Solution:
         root = ListNode(-1)
         tail = root
         
-        while(l1 or l2):
+        while(l1 or l2 or carry):
             
             v1 = 0
             v2 = 0
@@ -30,10 +30,6 @@ class Solution:
             carry = (v1+v2+carry)//10
             
             tail.next = ListNode(rem)
-            tail = tail.next
-        
-        if (carry):
-            tail.next = ListNode(carry)
             tail = tail.next
         
         return root.next
