@@ -41,29 +41,25 @@ class Solution:
         if (k == 0):
             return head
         
-        fir = head
+        tail = head
         sec = head
         prev = None
-        tail = None
         
         for _ in range(k-1):
             
-            tail = fir
-            fir = fir.next
+            tail = tail.next
         
         
-        # print(sec.val)
-        while(fir and fir.next):
+        while(tail and tail.next):
             prev = sec
             sec = sec.next
             
-            tail = fir
-            fir = fir.next
+            tail = tail.next
         
         # print(sec.val)
         if (prev):
             prev.next = None
-            fir.next = head
+            tail.next = head
             
         return (sec)
         
