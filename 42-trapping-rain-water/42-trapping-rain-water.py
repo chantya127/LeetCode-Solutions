@@ -1,32 +1,41 @@
+# maxl = 2,7
+# maxr = 2,7
+
+# ans = 3 + 2 +1
+
+
+
+
 class Solution:
     def trap(self, height: List[int]) -> int:
         
         size = len(height)
         
+        mleft , mright = 0,0
         
-        left = [0]*(size)
-        right = [0]*(size)
+        low,high = 0,size-1
         
-        left[0] , right[-1] = height[0] , height[-1]
+        ans = 0
         
-        for idx in range(1,size):
+        while(low < high):
             
-            left[idx] = max(left[idx-1] ,height[idx])
-        
-        for idx in range(size-2,-1,-1):
-            right[idx] = max(right[idx+1] , height[idx])
-        
-        total_capacity = 0
-        # print(left)
-        # print(right)
-        # print(height)
-        
-        for idx in range(1,size-1,1):
+            if (height[low] <= height[high]):
+                
+                if (height[low] >= mleft):
+                    mleft = height[low]
+                
+                else:
+                    ans += mleft-height[low]
+                
+                low +=1
             
-            min_height = min(left[idx] , right[idx])
-            curr_capacity = min_height - height[idx]
-            
-            
-            total_capacity += curr_capacity
-        
-        return (total_capacity)
+            else:
+                if(height[high] >= mright):
+                    mright = height[high]
+                
+                else:
+                    ans += mright - height[high]
+                
+                high -=1
+                
+        return (ans)
