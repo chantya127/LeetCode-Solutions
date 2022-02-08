@@ -1,50 +1,45 @@
+
+#  2
+
+# digits = [1,2,3] , k= 4
+
+# [1,3] , k = k - idx*(size-1) =>3 - 1*2 = 1
+
+# [1] , k = 1 - 1*1 = 0
+ 
+
 class Solution:
     def getPermutation(self, n: int, k: int) -> str:
         
-        def next_permuation(arr):
+        def solve(ans , size , k , digits):
             
-            def reverse(low , high):
-                
-                while(low < high):
-                    
-                    arr[low] , arr[high] = arr[high] , arr[low]
-                    
-                    low +=1
-                    high -=1
+            if (len(digits) == 1):
+                ans[0] += str(digits[0])
+                return
             
-            idx = -1
+            idx = k // fact[size-1]
+            ans[0] += str(digits[idx])
             
-            for k in range(n-2,-1,-1):
-                
-                if(arr[k+1] > arr[k]):
-                    idx = k
-                    break
-                    
-            if(idx == -1):
-                reverse( 0 , n-1)
+            digits.pop(idx)
             
-            else:
-                
-                flag = -1
-                for k in range(n-1,-1,-1):
-                    if (arr[k] > arr[idx]):
-                        flag = k
-                        break
-                
-                arr[flag] , arr[idx] = arr[idx] , arr[flag]
-                # print(arr,flag,idx)
-                reverse(idx+1 ,n-1)
+            k -= idx*(fact[size-1])
+            
+            solve(ans , size-1 , k , digits)
             
             
         
-        num = [i for i in range(1,n+1)]
+        if (n == 1):
+            return str(n)
         
-        for c in range(1,k):
-            # print(num , c)
-            next_permuation(num)
+        ans = [""]
+        fact = [0]*(n+1)
+        fact[1] = 1
+        fact[2] = 2
         
-        # print(9*8*7*6*5*4*3*2)
-#         num = [1,3,2]
+        for i in range(3,n+1):
+            fact[i] = fact[i-1]*i
         
-#         next_permuation(num)
-        return "".join(str(n) for n in num)
+        digits =[i+1 for i in range(n)]
+        
+        solve(ans , n , k-1 , digits)
+        return ans[0]
