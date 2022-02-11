@@ -22,7 +22,7 @@ class Solution:
             elif(mid+1 <size and nums[mid] == nums[mid+1]):
                 
                 if (mid%2 ==0):
-                    low = mid+1
+                    low = mid+2
                 
                 else:
                     high = mid-1
@@ -30,7 +30,7 @@ class Solution:
             # second element
             else:
                 if (mid%2 == 0):
-                    high = mid-1
+                    high = mid-2
                 
                 else:
                     low = mid+1
