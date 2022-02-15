@@ -28,40 +28,11 @@ class LFUCache:
             node = self.key_cache[key]
             
             node.level +=1
+        
+            self.remove_prev_level(node)
             
-            curr_level = node.level
+            self.insert_into_next_level(node.level , node,key)
 
-            self.remove(node)
-            
-            prev_level = node.level-1
-            
-            if (prev_level in self.level_cache):
-                prev_head , prev_tail = self.level_cache[prev_level]
-            
-                # no values left in prev level
-                if(prev_head.next == prev_tail):
-                    self.level_cache.pop(prev_level)
-            
-            
-            # new entry in level_cache
-            if (curr_level not in self.level_cache):
-                
-                head = Node()
-                tail = Node()
-                
-                head.next = tail
-                tail.prev = head
-                
-                self.level_cache[curr_level] = [head,tail]
-            
-            else:
-                head,tail = self.level_cache[curr_level]
-            
-            self.key_cache[key] = node
-            self.insert(node, tail)
-            
-            # print(self.key_cache)
-            
             return node.value
         
         else:
@@ -86,19 +57,7 @@ class LFUCache:
             node.value = value            
             
             node.level +=1
-            
-            curr_level = node.level
-
-            self.remove(node)
-            
-            prev_level = node.level-1
-            
-            if (prev_level in self.level_cache):
-                prev_head , prev_tail = self.level_cache[prev_level]
-            
-                # no values left in prev level
-                if(prev_head.next == prev_tail or prev_head.next == None):
-                    self.level_cache.pop(prev_level)
+            self.remove_prev_level(node)
             
 
         if(self.size > self.capacity) and (key not in self.key_cache):
@@ -110,7 +69,6 @@ class LFUCache:
             for level in self.level_cache:
                 
                 min_level = min(min_level , level)
-                #print(level , min_level , 'zzzz')
             
             if min_level != float('inf'):
                 
@@ -119,21 +77,36 @@ class LFUCache:
 
                 if (head.next != tail and head.next != None):
                     
-                    
                     # remove least recently used node
                     
                     first_node = head.next
-                    #print(min_level ,first_node.key ,first_node.level, 'fff')
                     self.remove(first_node)
 
                     first_key = first_node.key
                     self.key_cache.pop(first_key)
 
-
                 if (head.next == tail or head.next == None):
                     self.level_cache.pop(min_level)
+
+        self.insert_into_next_level(node.level, node , key)
         
         
+    
+    def remove_prev_level(self,node):
+        
+        self.remove(node)
+            
+        prev_level = node.level-1
+
+        if (prev_level in self.level_cache):
+            prev_head , prev_tail = self.level_cache[prev_level]
+
+            # no values left in prev level
+            if(prev_head.next == prev_tail):
+                self.level_cache.pop(prev_level)
+        
+    
+    def insert_into_next_level(self,curr_level,node,key):
         
         if (curr_level not in self.level_cache):
             
@@ -149,9 +122,6 @@ class LFUCache:
             
         self.key_cache[key] = node
         self.insert(node, tail)
-        
-        # print(self.key_cache , key , 'ssss')
-        # print()
     
     def insert(self,new_node , tail):
         
