@@ -11,14 +11,11 @@ class Solution:
                 return
             
             if (summe + cand[idx] <= target):
-                
                 solve(idx , summe+cand[idx] , curr + [cand[idx]])
             
             solve(idx+1 ,  summe , curr)
             
                 
-                
-        
         size = len(cand)
         
         ans = []
