@@ -25,16 +25,16 @@ class Solution:
         
         def solve(root , ans , pos):
             
-            if (root is None):
+            if (root is None or pos[0] >k):
                 return
 
             solve(root.right , ans , pos)
-            if (pos[0] == k-1):
-                ans[0] = root.data
-                # return
             
-            # print(root.data , pos)
             pos[0] +=1
+            if (pos[0] == k):
+                ans[0] = root.data
+                return
+            
             solve(root.left , ans , pos)
             
         
