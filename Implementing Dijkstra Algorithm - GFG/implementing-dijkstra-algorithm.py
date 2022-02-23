@@ -43,7 +43,7 @@ class Solution:
             
             for adj_node,wt in graph[node]:
                 
-                if (dis[adj_node] > dis[node] + wt):
+                if (dis[adj_node] > dis[node] + wt) and (vis[adj_node] == 0):
                     dis[adj_node] = dis[node] + wt
                     push(heap , (dis[adj_node] , adj_node))
         
