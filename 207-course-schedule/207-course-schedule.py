@@ -31,7 +31,7 @@ class Solution:
         
         vis = [0]*(courses)
         # print(graph)
-        for node in graph.copy():
+        for node in range(courses):
             if (vis[node] == 0):
                 
                 val = is_cycle(node)
