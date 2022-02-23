@@ -1,5 +1,5 @@
+from heapq import heappush as push ,heappop as pop
 from collections import defaultdict
-
 
 class Solution:
 
@@ -30,19 +30,23 @@ class Solution:
         dis = [float('inf') for _ in range(vertices)]
         vis = [0 for _ in range(vertices)]
         dis[src] = 0
+        heap = []
+        push(heap , (dis[src] , src))
         
-        count = vertices-1
-        while(count):
+        while(heap):
             
-            min_node = find_min(dis,vis)
-            vis[min_node] = 1
+            curr_dis , node = pop(heap)
+            if (vis[node] == 1):
+                continue
             
-            for adj_node,wt in graph[min_node]:
+            vis[node] = 1
+            
+            for adj_node,wt in graph[node]:
                 
-                if (dis[adj_node] > dis[min_node] + wt) :
-                    dis[adj_node] = dis[min_node] +wt
-            
-            count -=1 
+                if (dis[adj_node] > dis[node] + wt):
+                    dis[adj_node] = dis[node] + wt
+                    push(heap , (dis[adj_node] , adj_node))
+        
         
         return dis
 
