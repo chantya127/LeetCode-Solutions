@@ -26,10 +26,10 @@ class Solution:
             else:
                 p2 +=1
             
-            while(p1 < s1 and p2 <s2 and first[p1][1] < second[p2][0]):
-                p1 +=1
+#             while(p1 < s1 and p2 <s2 and first[p1][1] < second[p2][0]):
+#                 p1 +=1
             
-            while(p2 <s2 and p1 < s1 and second[p2][1] < first[p1][0]):
-                p2 +=1
+#             while(p2 <s2 and p1 < s1 and second[p2][1] < first[p1][0]):
+#                 p2 +=1
         
         return ans
