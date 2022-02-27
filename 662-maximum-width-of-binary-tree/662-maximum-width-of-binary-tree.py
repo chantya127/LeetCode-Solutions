@@ -6,10 +6,6 @@
 #         self.right = right
 
 
-#         1
-#      2       3
-#    4   5    6  7
-#   8 9 10 1
 
 class Solution:
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
