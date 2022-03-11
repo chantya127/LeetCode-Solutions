@@ -16,22 +16,6 @@ class Solution:
             
             return (count)
         
-        def get_rev(root):
-            
-            prev = None
-            curr  = root
-            nexa = root
-            
-            while(nexa):
-                
-                nexa = nexa.next
-                curr.next = prev
-                
-                prev = curr
-                curr = nexa
-            
-            return (prev)
-        
         if (head is None or head.next is None):
             return head
         
