@@ -4,9 +4,6 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         
-        def swap(arr , st,end):
-            
-            arr[st] , arr[end] = arr[end] , arr[st]
         
         size = len(nums)
         flag = 0
@@ -16,7 +13,6 @@ class Solution:
                 flag = 1
                 break
                 
-        
         if(flag):
             
             for idx in range(size-1,-1,-1):
@@ -33,7 +29,7 @@ class Solution:
         start = k
         end = size-1
         while(start < end):
-            swap(nums , start,end)
+            nums[start] ,nums[end] = nums[end] , nums[start]
             start +=1
             end -=1
         
