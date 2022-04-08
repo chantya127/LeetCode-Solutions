@@ -7,7 +7,6 @@ class KthLargest:
         self.heap = []
         self.limit= k
         for num in nums:
-            
             push(self.heap , num)
         
         
@@ -16,7 +15,6 @@ class KthLargest:
         push(self.heap , val)
         
         while(len(self.heap) > self.limit):
-            
             pop(self.heap)
         
         return self.heap[0]
