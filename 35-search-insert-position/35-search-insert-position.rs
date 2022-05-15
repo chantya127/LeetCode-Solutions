@@ -7,6 +7,11 @@ impl Solution {
         if (target < nums[0]){
             return 0;
         }
+        
+        if(target > nums[nums.len()-1]){
+            return nums.len() as i32;
+        }
+        
         let mut low = 0;
         let mut high = nums.len() -1;
         
