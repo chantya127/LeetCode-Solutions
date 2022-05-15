@@ -1,3 +1,5 @@
+use std::cmp::max;
+
 impl Solution {
     pub fn max_sub_array(nums: Vec<i32>) -> i32 {
         let mut prev_sum = 0;
@@ -12,9 +14,7 @@ impl Solution {
                 prev_sum = num;
             }
             
-            if(prev_sum > max_sum){
-                max_sum = prev_sum;
-            }
+            max_sum = max(max_sum , prev_sum)
         }
         
         max_sum
