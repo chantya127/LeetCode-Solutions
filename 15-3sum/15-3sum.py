@@ -1,40 +1,43 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         
-        size = len(nums)
+        nums.sort()
         ans = []
         
-        if (size< 3):
-            return ans
+        print(nums)
         
-        nums.sort()
-        for ptr1 in range(size-2):
+        size = len(nums)
+        for p1 in range(size-2):
             
-            if (ptr1>0 and nums[ptr1] == nums[ptr1-1]):
+            
+            if (p1 >0 and nums[p1] == nums[p1-1]):
                 continue
+                
+            n1 = nums[p1]
             
-            ptr2 = ptr1+1
-            ptr3 = size-1
+            p2 , p3 = p1+1 , size-1
             
-            while(ptr2 < ptr3):
+            while(p2 < p3):
                 
-                summe = nums[ptr1] + nums[ptr2] + nums[ptr3]
-                
-                if (summe == 0):
-                    ans.append([nums[ptr1], nums[ptr2] , nums[ptr3]])
+                curr_sum = nums[p1] + nums[p2] + nums[p3]
+
+                if (curr_sum == 0):
                     
-                    curr = nums[ptr2]
-                    while(ptr2 <ptr3 and nums[ptr2] == curr):
-                        ptr2 +=1
+                    ans.append([nums[p1] , nums[p2] , nums[p3]])
                     
-                    curr = nums[ptr3]
-                    while(ptr2 < ptr3 and nums[ptr3] == curr):
-                        ptr3 -=1
+                    p2 +=1
+                    while(p2 < p3 and nums[p2] == nums[p2-1]):
+                        p2 +=1
+                    
+                    p3 -=1
+                    while(p3 >=0 and nums[p3] == nums[p3+1]):
+                        p3 -=1
                 
-                elif(summe > 0):
-                    ptr3 -=1
+                elif (curr_sum <0):
+                    p2 +=1
                 
                 else:
-                    ptr2 +=1
+                    p3 -=1
+        
+        return (ans)
                 
-        return ans
