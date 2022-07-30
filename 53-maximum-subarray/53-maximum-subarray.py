@@ -3,17 +3,17 @@ class Solution:
         
         size = len(nums)
         
-        prev, summe = 0,float('-inf')
+        max_sum = float('-inf')
+        curr_sum = 0
         
-        for curr in nums:
+        for num in nums:
             
-            if (prev >=0):
-                prev += curr
+            if (curr_sum >= 0):
+                curr_sum += num
             
             else:
-                prev = curr
+                curr_sum = num
             
-            if(prev > summe):
-                summe = prev
+            max_sum = max(max_sum , curr_sum)
         
-        return (summe)
+        return (max_sum)
