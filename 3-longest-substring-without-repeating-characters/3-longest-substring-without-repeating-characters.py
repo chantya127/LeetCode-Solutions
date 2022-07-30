@@ -1,27 +1,34 @@
+from collections import defaultdict
+
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         
-        size = len(s)
-        prev = 0
         
-        vis = {}
+        dd = defaultdict(int)
+        prev_ptr = 0
+        
+        size = len(s)
         ans = 0
+        
         for idx in range(size):
             
-            curr = s[idx]
+            char = s[idx]
+            dd[char] +=1
             
-            if (curr in vis):
-                while(prev <idx):
-                    
-                    pchar = s[prev]
-                    prev +=1
-                    vis.pop(pchar)
-                    if (pchar == curr):
-                        break
+            while(prev_ptr <= idx and dd[char] > 1):
+                
+                prev_char = s[prev_ptr] 
+                prev_ptr +=1
+                
+                if (dd[prev_char] == 1):
+                    dd.pop(prev_char)
+                
+                else:
+                    dd[prev_char] -=1
             
-            vis[curr] = idx
+            curr_len = idx - prev_ptr+1
             
-            length = idx - prev+1
-            ans = max(ans, length)
+            # print(idx ,prev_ptr , curr_len)
+            ans = max(ans , curr_len)
         
         return (ans)
