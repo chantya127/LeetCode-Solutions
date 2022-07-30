@@ -1,25 +1,22 @@
 class Solution:
-    def combinationSum(self, cand: List[int], target: int) -> List[List[int]]:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
-        def solve(idx , summe , curr):
+        def solve(idx , size , target , curr):
             
-            if idx == size :
-                if (summe == target):
-                    ans.append(curr[:])
-                    
-                
+            if (target == 0):
+                ans.append(curr)
                 return
             
-            if (summe + cand[idx] <= target):
-                solve(idx , summe+cand[idx] , curr + [cand[idx]])
+            if (idx == size):
+                return 
             
-            solve(idx+1 ,  summe , curr)
+            if (candidates[idx] <= target):
+                solve(idx , size , target - candidates[idx] , curr + [candidates[idx]])
             
-                
-        size = len(cand)
+            solve(idx+1 , size,target , curr)
         
         ans = []
         
-        solve(0 , 0,[])
+        solve(0,len(candidates) , target , [])
         
         return ans
