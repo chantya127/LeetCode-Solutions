@@ -4,14 +4,16 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         
-        row_size,col_size = len(matrix) , len(matrix[0])
         
-        row_flag ,col_flag = 0,0
+        row_size , col_size = len(matrix), len(matrix[0])
+        
+        row_flag , col_flag = 0,0
         
         for r in range(row_size):
             for c in range(col_size):
                 
                 if (matrix[r][c] == 0):
+                    
                     matrix[0][c] = 0
                     matrix[r][0] = 0
                     
@@ -23,14 +25,14 @@ class Solution:
         
         for r in range(1,row_size):
             for c in range(1,col_size):
-                if (matrix[r][0] ==0 or matrix[0][c] == 0):
+                
+                if (matrix[0][c] == 0 or matrix[r][0] == 0):
                     matrix[r][c] = 0
         
-        if(row_flag):
+        if (row_flag):
             for c in range(col_size):
                 matrix[0][c] = 0
         
         if (col_flag):
             for r in range(row_size):
                 matrix[r][0] = 0
-                
