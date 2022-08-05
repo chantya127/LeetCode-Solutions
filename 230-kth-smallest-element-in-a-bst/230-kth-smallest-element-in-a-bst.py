@@ -8,19 +8,18 @@ class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         
         def solve(root , pos):
-            
-            if (root is None or pos[0] > k):
-                return 
+            if (root is None):
+                return
             
             solve(root.left , pos)
             
-            if (pos[0] == k-1):
-                ans[0] =  root.val
-                
-            pos[0] +=1
+            pos[0] -=1
+            if (pos[0] == 0):
+                ans[0] = root.val
+                return
+            
             solve(root.right , pos)
             
-        ans = [float('inf')]
-        solve(root , [0])
-        
+        ans = [-1]
+        solve(root , [k])
         return ans[0]
