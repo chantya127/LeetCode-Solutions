@@ -8,28 +8,30 @@ class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
         def solve(root):
-            
             if (root is None):
-                return (True , float('-inf') , float('inf'))
-            
-            left_ans , left_max , left_min = solve(root.left)
-            
-            right_ans , right_max, right_min = solve(root.right)
-            
-            curr_ans = False
-            curr_data = root.val
-            
-            if (left_ans and right_ans and left_max < curr_data < right_min):
-                curr_ans = True
-                
-            curr_max= max(left_max , curr_data , right_max)
-            curr_min = min(left_min , curr_data , right_min)
-            
-            return (curr_ans , curr_max , curr_min)
+                return (True,float('inf') , float('-inf'))
             
             
+            left_is_bst , left_min, left_max = solve(root.left)
+            
+            
+            if (not left_is_bst or root.val <= left_max):
+                return (False,float('inf') , float('-inf'))
+                        
+            
+            right_is_bst, right_min, right_max = solve(root.right)
+            if (not right_is_bst or root.val >= right_min):
+                return (False,float('inf') , float('-inf'))
+            
+            curr_max = max(root.val , left_max ,right_max)
+            curr_min = min(root.val , left_min , right_min)
+            
+            
+            
+            return (True , curr_min ,curr_max)
+
         
-        curr_ans , curr_max , curr_min = solve(root)
-        return(curr_ans)
+        ans,_,_ = solve(root)
         
+        return (ans)
         
