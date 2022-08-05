@@ -1,57 +1,50 @@
-class node:
+class Node:
     
     def __init__(self):
-        self.child = {}
         self.end = 0
+        self.child = {}
+
 
 class Trie:
 
     def __init__(self):
         
-        self.root = node()
+        self.root = Node()
         
+
     def insert(self, word: str) -> None:
         
-        temp = self.root
-        
+        root = self.root
         for ch in word:
-            
-            idx = ord(ch) - ord('a')
-            if (ch not in temp.child):
-                temp.child[ch] = node()
-            
-            temp = temp.child[ch]
+            if (ch not in root.child):
+                root.child[ch] = Node()
+                
+            root = root.child[ch]
         
-        temp.end = 1
+        root.end = 1
         
 
     def search(self, word: str) -> bool:
         
-        temp = self.root
-        
+        root = self.root
         for ch in word:
-            
-            if (ch not in temp.child):
+            if (ch not in root.child):
                 return False
             
-            temp = temp.child[ch]
-        
-        return temp.end == 1
+            root = root.child[ch]
+            
+        return (root.end == 1)
 
     def startsWith(self, prefix: str) -> bool:
         
-        temp = self.root
+        root = self.root
         
         for ch in prefix:
-            
-            if (ch not in temp.child):
+            if(ch not in root.child):
                 return False
-            
-            temp = temp.child[ch]
+            root = root.child[ch]
         
         return True
-        
-        
         
 
 
