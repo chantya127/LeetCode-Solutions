@@ -4,39 +4,37 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         
-        def solve(pre_idx , low , high):
+        def solve(index , low , high):
             
-            if (pre_idx  == size or low > high):
+            
+            if (index[0] >= size) or (low > high):
                 return None
             
+            curr_node = TreeNode(preorder[index[0]])
+            index[0] +=1
+            
             if (low == high):
-                
-                node =  TreeNode(preorder[pre_idx[0]])
-                pre_idx[0] +=1
-                
-                return node
+                return (curr_node)
             
-            data = preorder[pre_idx[0]]
-            root = TreeNode(data)
+            node_idx = val_index_mapping[curr_node.val]
             
-            idx = mapping_inorder[data]
+            curr_node.left =  solve(index , low , node_idx-1)
+            curr_node.right = solve(index , node_idx+1 , high)
             
-            pre_idx[0] +=1
+            return (curr_node)
             
-            root.left = solve(pre_idx , low,idx-1)
-            root.right= solve(pre_idx , idx+1, high)
-            
-            return root
-            
-            
-        mapping_inorder = {}
-        size = len(inorder)
-        for idx in range(size):
-            val = inorder[idx]
-            mapping_inorder[val] = idx
         
-        root = solve([0] , 0,size-1)
-        return root
+        val_index_mapping = defaultdict(int)
+        for (idx,val) in enumerate(inorder):
+            val_index_mapping[val] = idx
+            
+        size = len(inorder)
+        ans = solve([0] , 0, size-1)
+        
+        # print(ans.left , ans.right)
+        
+        return (ans)
