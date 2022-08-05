@@ -7,31 +7,25 @@
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         
-        def solve(root):
+        def solve(root , ans):
             
             if (root is None):
-                return float('-inf')
+                return (0)
             
+            left_sum = solve(root.left , ans)
+            right_sum = solve(root.right , ans)
             
-            left = solve(root.left)
-            right = solve(root.right)
+            child_max = max(left_sum , right_sum) 
+            curr_max = max(root.val , child_max + root.val , root.val + left_sum + right_sum)
             
-            both_inc = root.val + left + right
+            ans[0] = max(ans[0] , curr_max)
             
-            one_inc = root.val + max(left , right)
+            return max(child_max + root.val , root.val)
             
-            only_root = root.val
-            
-            maxi = max(only_root , both_inc , one_inc)
-            
-            if (maxi > ans[0]):
-                ans[0] = maxi
-            
-            return max(only_root , one_inc)
             
         
         ans = [float('-inf')]
         
-        val = solve(root)
+        solve(root , ans)
         
-        return ans[0]
+        return (ans[0])
