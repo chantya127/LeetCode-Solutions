@@ -5,7 +5,6 @@ class Solution:
         
         intervals.sort(key = lambda x:x[1])
         
-        print(intervals)
         ans = 0
         end = float("-inf")
         
@@ -17,10 +16,7 @@ class Solution:
             
             else:
                 ans +=1
-        
-        
-        
-        
+
         return ans
         
     
