@@ -1,43 +1,56 @@
+
 from heapq import heappush as push , heappop as pop
 
 class MedianFinder:
 
     def __init__(self):
-        self.mini = []
-        self.maxi = []
         
+        self.min_heap = []
+        self.max_heap = []
 
     def addNum(self, num: int) -> None:
         
-        if (len(self.maxi) == 0 or abs(self.maxi[0]) > num):
-            push(self.maxi, -num)
+        if (len(self.max_heap) == 0):
+            push(self.max_heap , -num)
+        
+        elif(num < -self.max_heap[0]):
+            push(self.max_heap , -num)
         
         else:
-            push(self.mini , num)
+            push(self.min_heap , num)
         
-        if (len(self.maxi)+1 > len(self.mini)):
-            ele = pop(self.maxi)
-            push(self.mini , -ele)
         
-        if(len(self.mini) > len(self.maxi)):
-            ele = pop(self.mini)
-            push(self.maxi , -ele)
+        if (len(self.min_heap) > len(self.max_heap)):
             
+            ele = pop(self.min_heap)
+            push(self.max_heap , -ele)
+            
+            
+        
+        if (len(self.max_heap)  > len(self.min_heap)+ 1):
+            
+            ele = - pop(self.max_heap)
+            push(self.min_heap , ele)
+            
+        
+        # print(num , self.max_heap , self.min_heap)
         
 
     def findMedian(self) -> float:
         
-        if (len(self.maxi) + len(self.mini))%2 ==0:
-            
-            low = -self.maxi[0]
-            high = self.mini[0]
-            
-            # print((low + high)//2)
-            return (low+high)/2
         
+        # print(self.max_heap , self.min_heap)
+        
+        ele_1 = - self.max_heap[0]
+        
+        if (len(self.min_heap) + len(self.max_heap))%2 == 0:
+            
+            ele_2 = self.min_heap[0]
+            
+            return (ele_1 + ele_2)/2
+    
         else:
-            return -self.maxi[0]
-
+            return ele_1
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
